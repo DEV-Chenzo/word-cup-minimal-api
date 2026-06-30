@@ -10,16 +10,11 @@ export async function getWordCupData(request: FastifyRequest , response: Fastify
 }
 
 export async function getTeamByIdHandler(
-  request: FastifyRequest<{ Params: TeamParams }>, // 2. Passamos a tipagem para o Fastify
+  request: FastifyRequest<{ Params: TeamParams }>,
   reply: FastifyReply
 ) {
-  // 3. Pegamos a variável da URL
   const { id } = request.params; 
-
-  // 4. Aplicamos o filtro na nossa lista de dados
   const team = Teams.find((t: MyTeams) => t.fifa_code === id.toUpperCase());
-
-  // 5. Se não encontrar a seleção, retornamos 404
   if (!team) {
     reply.type("application/json").code(404);
     return { message: "Seleção não encontrada" };
