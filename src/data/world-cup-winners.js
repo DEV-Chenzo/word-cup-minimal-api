@@ -26,7 +26,7 @@ export const WorldCupWinners = [
       "host": "Brasil",
       "winner": "Uruguai",
       "runner_up": "Brasil",
-      "score": "2-1 (fase final)"
+      "score": "2-1"
     },
     {
       "year": 1954,
