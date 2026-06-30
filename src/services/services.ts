@@ -2,7 +2,7 @@ import type { FastifyReply, FastifyRequest } from "fastify";
 // @ts-ignore: module has no declaration file
 import { Teams } from "../data/teams";
 // @ts-ignore: module has no declaration file
-import { WorldCupWinners } from "../data/word-cup-winners";
+import { WorldCupWinners } from "../data/world-cup-winners";
 import type { MyTeams, TeamParams } from "./services.type.ts";
 
 export async function getWordCupData(
@@ -26,13 +26,15 @@ export async function getTeamsByFieldHandler(
   reply: FastifyReply,
 ) {
   const { id } = request.params;
+  if (!id || id.trim() === "") {
+    reply.type("application/json").code(400);
+    return { message: "Por favor, informe o nome da seleção ou o número de títulos." };
+  }
 
-  // 1. Verificamos se o que foi digitado é um número (ex: "5")
   const isNumber = /^\d+$/.test(id);
 
   if (isNumber) {
     const titlesCount = parseInt(id, 10);
-    // Filtra todas as seleções que têm aquele número exato de títulos
     const filteredTeams = Teams.filter(
       (t: MyTeams) => t.world_cup_titles === titlesCount,
     );
@@ -41,7 +43,7 @@ export async function getTeamsByFieldHandler(
     return { Teams: filteredTeams };
   } else {
     const team = Teams.find(
-      (t: MyTeams) => t.name.toLowerCase() === id.toLowerCase(),
+      (t: MyTeams) => t.name.toLowerCase() === id.toLowerCase() || t.fifa_code === id.toUpperCase(),
     );
 
     if (!team) {

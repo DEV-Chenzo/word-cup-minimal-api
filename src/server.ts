@@ -4,13 +4,14 @@ import {
   getTeamsData,
   getTeamsByFieldHandler,
 } from "./services/services.ts";
+
 const server = fastify({
   logger: true,
 });
 
-server.get("/wordcup", await getWordCupData);
-server.get("/teams", await getTeamsData);
-server.get("/teams/:id", await getTeamsByFieldHandler);
+server.get("/", getWordCupData);
+server.get("/teams", getTeamsData);
+server.get("/teams/:id", getTeamsByFieldHandler);
 
 const start = async () => {
   try {
