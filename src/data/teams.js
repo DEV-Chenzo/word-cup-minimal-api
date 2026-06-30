@@ -1,4 +1,4 @@
-export const teams = [
+export const Teams = [
   {
     "name": "Brasil",
     "fifa_code": "BRA",

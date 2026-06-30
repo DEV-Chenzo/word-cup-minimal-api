@@ -1,5 +1,5 @@
 
-export const world_cup_winners = [
+export const WorldCupWinners = [
     {
       "year": 1930,
       "host": "Uruguai",
